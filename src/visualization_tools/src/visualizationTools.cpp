@@ -17,6 +17,7 @@
 #include <tf/transform_datatypes.h>
 #include <tf/transform_broadcaster.h>
 
+#include <pcl/io/pcd_io.h>
 #include <pcl/io/ply_io.h>
 #include <pcl_conversions/pcl_conversions.h>
 #include <pcl/point_cloud.h>
@@ -253,10 +254,13 @@ int main(int argc, char** argv)
   exploredAreaDwzFilter.setLeafSize(exploredAreaVoxelSize, exploredAreaVoxelSize, exploredAreaVoxelSize);
   exploredVolumeDwzFilter.setLeafSize(exploredVolumeVoxelSize, exploredVolumeVoxelSize, exploredVolumeVoxelSize);
 
-  pcl::PLYReader ply_reader;
-  if (ply_reader.read(mapFile, *overallMapCloud) == -1) {
-    printf("\nCouldn't read pointcloud.ply file.\n\n");
-  }
+//  pcl::PLYReader ply_reader;
+//  if (ply_reader.read(mapFile, *overallMapCloud) == -1) {
+//    printf("\nCouldn't read pointcloud.ply file.\n\n");
+//  }
+
+  pcl::PCDReader reader;
+  reader.read<pcl::PointXYZ>(mapFile, *overallMapCloud);
 
   overallMapCloudDwz->clear();
   overallMapDwzFilter.setInputCloud(overallMapCloud);
