@@ -1,5 +1,6 @@
-<launch>
+<?xml version="1.0"?>
 
+<launch>
   <arg name="sensorOffsetX" default="0"/>
   <arg name="sensorOffsetY" default="0"/>
   <arg name="vehicleHeight" default="0.75"/>

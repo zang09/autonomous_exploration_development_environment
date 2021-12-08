@@ -15,7 +15,7 @@
   <node pkg="local_planner" type="localPlanner" name="localPlanner" output="screen" required="true">
     <param name="pathFolder" type="string" value="$(find local_planner)/paths" />
     <param name="vehicleLength" type="double" value="0.6" />
-    <param name="vehicleWidth" type="double" value="0.6" />
+    <param name="vehicleWidth" type="double" value="0.3" />
     <param name="sensorOffsetX" value="$(arg sensorOffsetX)" />
     <param name="sensorOffsetY" value="$(arg sensorOffsetY)" />
     <param name="twoWayDrive" value="$(arg twoWayDrive)" />
@@ -60,7 +60,7 @@
     <param name="sensorOffsetY" value="$(arg sensorOffsetY)" />
     <param name="pubSkipNum" type="int" value="1" />
     <param name="twoWayDrive" value="$(arg twoWayDrive)" />
-    <param name="lookAheadDis" type="double" value="0.3" />
+    <param name="lookAheadDis" type="double" value="0.4" />
     <param name="yawRateGain" type="double" value="7.5" />
     <param name="stopYawRateGain" type="double" value="7.5" />
     <param name="maxYawRate" type="double" value="90.0" />
@@ -69,14 +69,14 @@
     <param name="switchTimeThre" type="double" value="1.0" />
     <param name="dirDiffThre" type="double" value="0.1" />
     <param name="stopDisThre" type="double" value="0.2" />
-    <param name="slowDwnDisThre" type="double" value="0.85" />
+    <param name="slowDwnDisThre" type="double" value="0.7" />
     <param name="useInclRateToSlow" type="bool" value="false" />
     <param name="inclRateThre" type="double" value="120.0" />
     <param name="slowRate1" type="double" value="0.25" />
     <param name="slowRate2" type="double" value="0.5" />
     <param name="slowTime1" type="double" value="2.0" />
     <param name="slowTime2" type="double" value="2.0" />
-    <param name="useInclToStop" type="bool" value="true" />
+    <param name="useInclToStop" type="bool" value="false" />
     <param name="inclThre" type="double" value="45.0" />
     <param name="stopTime" type="double" value="5.0" />
     <param name="noRotAtStop" type="bool" value="false" />
