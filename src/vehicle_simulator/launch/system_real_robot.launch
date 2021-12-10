@@ -20,7 +20,7 @@
     <arg name="checkTerrainConn" value="$(arg checkTerrainConn)"/>
   </include>
 
-  <!--include file="$(find sensor_scan_generation)/launch/sensor_scan_generation.launch" /-->
+  <include file="$(find sensor_scan_generation)/launch/sensor_scan_generation.launch" />
 
   <!--include file="$(find loam_interface)/launch/loam_interface.launch" /-->
   
