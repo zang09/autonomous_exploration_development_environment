@@ -62,6 +62,11 @@ void laserCloudAndOdometryHandler(const nav_msgs::Odometry::ConstPtr& odometry,
   for (int i = 0; i < laserCloudInNum; i++)
   {
     p1 = laserCloudIn->points[i];
+
+    float dist = sqrt(p1.x*p1.x + p1.y*p1.y);
+    if(dist < 1.0) //0.8
+        continue;
+
     vec.setX(p1.x);
     vec.setY(p1.y);
     vec.setZ(p1.z);
