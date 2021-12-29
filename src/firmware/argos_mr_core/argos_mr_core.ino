@@ -35,7 +35,7 @@
 Servo vesc1_, vesc2_, vesc3_, vesc4_;
 double bldc1_val_, bldc2_val_, bldc3_val_, bldc4_val_;
 
-const double robot_width_   = 1.0;
+const double robot_width_   = 0.5;
 
 const double gain_          = 0.4;
 const int    ctr_val_       = 72;
@@ -174,8 +174,16 @@ void loop()
 
 void veloCallback(const geometry_msgs::Twist &vel_msg)
 {
-  auto_left_vel_  = (vel_msg.linear.x - (vel_msg.angular.z*(robot_width_/2)));
-  auto_right_vel_ = (vel_msg.linear.x + (vel_msg.angular.z*(robot_width_/2)));
+  if(vel_msg.linear.x == 0)
+  {
+    auto_left_vel_  = -(vel_msg.angular.z*robot_width_);
+    auto_right_vel_ = vel_msg.angular.z*robot_width_;
+  }
+  else
+  {
+    auto_left_vel_  = (vel_msg.linear.x - (vel_msg.angular.z*(robot_width_/2)));
+    auto_right_vel_ = (vel_msg.linear.x + (vel_msg.angular.z*(robot_width_/2)));
+  }  
 }
 
 void dataParsing(String str)

@@ -8,7 +8,7 @@
   <arg name="autonomyMode" default="true"/>
   <arg name="autonomySpeed" default="1.2"/>
   <arg name="joyToSpeedDelay" default="2.0"/>
-  <arg name="goalBound" default="1.0"/>
+  <arg name="goalBound" default="0.5"/>
   <arg name="goalX" default="0"/>
   <arg name="goalY" default="0"/>
 
