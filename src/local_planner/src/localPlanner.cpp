@@ -9,6 +9,7 @@
 #include <message_filters/sync_policies/approximate_time.h>
 
 #include <std_msgs/Bool.h>
+#include <std_msgs/Int8.h>
 #include <std_msgs/Float32.h>
 #include <nav_msgs/Path.h>
 #include <nav_msgs/Odometry.h>
@@ -595,13 +596,17 @@ int main(int argc, char** argv)
     ros::Subscriber subCheckObstacle = nh.subscribe<std_msgs::Bool> ("/check_obstacle", 5, checkObstacleHandler);
 
     ros::Publisher pubPath = nh.advertise<nav_msgs::Path> ("/path", 5);
+
+    ros::Publisher pubStop = nh.advertise<std_msgs::Int8> ("/stop", 5);
+
     nav_msgs::Path path;
+    std_msgs::Int8 flag;
 
 #if PLOTPATHSET == 1
     ros::Publisher pubFreePaths = nh.advertise<sensor_msgs::PointCloud2> ("/free_paths", 2);
 #endif
 
-    //ros::Publisher pubLaserCloud = nh.advertise<sensor_msgs::PointCloud2> ("/stacked_scans", 2);
+    ros::Publisher pubLaserCloud = nh.advertise<sensor_msgs::PointCloud2> ("/stacked_scans", 2);
 
     printf ("\nReading path files.\n");
 
@@ -848,7 +853,7 @@ int main(int argc, char** argv)
                         continue;
                     }
 
-                    if (clearPathList[i] < pointPerPathThre) {
+                    if (clearPathList[i] < pointPerPathThre) {                        
                         float penaltyScore = 1.0 - pathPenaltyList[i] / costHeightThre;
                         if (penaltyScore < costScore) penaltyScore = costScore;
 
@@ -993,11 +998,11 @@ int main(int argc, char** argv)
 #endif
             }
 
-            /*sensor_msgs::PointCloud2 plannerCloud2;
-      pcl::toROSMsg(*plannerCloudCrop, plannerCloud2);
-      plannerCloud2.header.stamp = ros::Time().fromSec(odomTime);
-      plannerCloud2.header.frame_id = "/base_link";
-      pubLaserCloud.publish(plannerCloud2);*/
+            sensor_msgs::PointCloud2 plannerCloud2;
+            pcl::toROSMsg(*plannerCloudCrop, plannerCloud2);
+            plannerCloud2.header.stamp = ros::Time().fromSec(odomTime);
+            plannerCloud2.header.frame_id = "/base_link";
+            pubLaserCloud.publish(plannerCloud2);
         }
     }
 
