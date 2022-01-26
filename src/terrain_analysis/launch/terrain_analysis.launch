@@ -13,14 +13,14 @@
     <param name="clearDyObs" type="bool" value="true" />
     <param name="minDyObsDis" type="double" value="0.3" />
     <param name="minDyObsAngle" type="double" value="0" />
-    <param name="minDyObsRelZ" type="double" value="-0.5" /> <!--fix-->
+    <param name="minDyObsRelZ" type="double" value="-1.0" /> <!--fix (-height+0.3)-->
     <param name="minDyObsVFOV" type="double" value="-45.0" /> <!--fix-->
     <param name="maxDyObsVFOV" type="double" value="45.0" /> <!--fix-->
     <param name="minDyObsPointNum" type="int" value="1" />
     <param name="noDataObstacle" type="bool" value="false" /> <!--fix-->
     <param name="noDataBlockSkipNum" type="int" value="0" />
     <param name="minBlockPointNum" type="int" value="10" />
-    <param name="vehicleHeight" type="double" value="0.8" /> <!--fix-->
+    <param name="vehicleHeight" type="double" value="1.3" /> <!--fix-->
     <param name="voxelPointUpdateThre" type="int" value="100" />
     <param name="voxelTimeUpdateThre" type="double" value="2.0" />
     <param name="minRelZ" type="double" value="-2.5" /> <!--fix-->
