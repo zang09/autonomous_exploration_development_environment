@@ -15,12 +15,12 @@
   <node pkg="local_planner" type="localPlanner" name="localPlanner" output="screen" required="true">
     <param name="pathFolder" type="string" value="$(find local_planner)/paths" />
     <param name="vehicleLength" type="double" value="0.8" />
-    <param name="vehicleWidth" type="double" value="0.5" />
+    <param name="vehicleWidth" type="double" value="0.6" />
     <param name="sensorOffsetX" value="$(arg sensorOffsetX)" />
     <param name="sensorOffsetY" value="$(arg sensorOffsetY)" />
     <param name="twoWayDrive" value="$(arg twoWayDrive)" />
-    <param name="laserVoxelSize" type="double" value="0.05" /> <!--fix-->
-    <param name="terrainVoxelSize" type="double" value="0.2" /> <!--fix-->
+    <param name="laserVoxelSize" type="double" value="0.05" /> <!--fix (0.2)-->
+    <param name="terrainVoxelSize" type="double" value="0.2" /> <!--fix (0.4)-->
     <param name="useTerrainAnalysis" type="bool" value="true" /> <!--fix-->
     <param name="checkObstacle" type="bool" value="true" /> <!--fix-->
     <param name="checkRotObstacle" type="bool" value="true" /> <!--fix-->
@@ -31,8 +31,8 @@
     <param name="costScore" type="double" value="0.02" />
     <param name="useCost" type="bool" value="true" /> <!--fix-->
     <param name="pointPerPathThre" type="int" value="3" /> <!--fix-->
-    <param name="minRelZ" type="double" value="-1.0" /> <!--fix (-height+0.3)-->
-    <param name="maxRelZ" type="double" value="1.0" />
+    <param name="minRelZ" type="double" value="-0.5" /> <!--fix-->
+    <param name="maxRelZ" type="double" value="0.25" />
     <param name="maxSpeed" value="$(arg maxSpeed)" />
     <param name="dirWeight" type="double" value="0.02" />
     <param name="dirThre" type="double" value="45.0" />
