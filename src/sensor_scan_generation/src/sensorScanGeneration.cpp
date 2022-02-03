@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ros/ros.h>
+#include <math.h>
 
 #include <nav_msgs/Odometry.h>
 #include <sensor_msgs/PointCloud2.h>
@@ -13,15 +14,21 @@
 #include <pcl_conversions/pcl_conversions.h>
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
+#include <pcl/filters/extract_indices.h>
+#include <pcl/filters/passthrough.h>
 
 #include <message_filters/subscriber.h>
 #include <message_filters/sync_policies/approximate_time.h>
 #include <message_filters/synchronizer.h>
 
+#define PI       3.1415912
+#define RAD2DEG  180/PI
+#define DEG2RAD  PI/180
+
 using namespace std;
 
 pcl::PointCloud<pcl::PointXYZI>::Ptr laserCloudIn(new pcl::PointCloud<pcl::PointXYZI>());
-pcl::PointCloud<pcl::PointXYZI>::Ptr laserCLoudInSensorFrame(new pcl::PointCloud<pcl::PointXYZI>());
+pcl::PointCloud<pcl::PointXYZI>::Ptr laserCloudInSensorFrame(new pcl::PointCloud<pcl::PointXYZI>());
 
 double robotX = 0;
 double robotY = 0;
@@ -43,7 +50,7 @@ void laserCloudAndOdometryHandler(const nav_msgs::Odometry::ConstPtr& odometry,
                                   const sensor_msgs::PointCloud2ConstPtr& laserCloud2)
 {
   laserCloudIn->clear();
-  laserCLoudInSensorFrame->clear();
+  laserCloudInSensorFrame->clear();
 
   pcl::fromROSMsg(*laserCloud2, *laserCloudIn);
 
@@ -67,6 +74,12 @@ void laserCloudAndOdometryHandler(const nav_msgs::Odometry::ConstPtr& odometry,
 //    if(dist < 1.0) //0.8
 //        continue;
 
+    float theta = atan2(p1.y, p1.x);
+    if(theta < 0) theta += 2*PI;
+
+    if (((theta*RAD2DEG) > 140.0) && ((theta*RAD2DEG) < 220.0))
+        continue;
+
     vec.setX(p1.x);
     vec.setY(p1.y);
     vec.setZ(p1.z);
@@ -77,7 +90,7 @@ void laserCloudAndOdometryHandler(const nav_msgs::Odometry::ConstPtr& odometry,
     p1.y = vec.y();
     p1.z = vec.z();
 
-    laserCLoudInSensorFrame->points.push_back(p1);
+    laserCloudInSensorFrame->points.push_back(p1);
   }
 
   odometryIn.header.stamp = laserCloud2->header.stamp;
@@ -85,7 +98,7 @@ void laserCloudAndOdometryHandler(const nav_msgs::Odometry::ConstPtr& odometry,
   pubOdometryPointer->publish(odometryIn);
 
   sensor_msgs::PointCloud2 scan_data;
-  pcl::toROSMsg(*laserCLoudInSensorFrame, scan_data);
+  pcl::toROSMsg(*laserCloudInSensorFrame, scan_data);
   scan_data.header.stamp = laserCloud2->header.stamp;
   scan_data.header.frame_id = "/map";
   pubLaserCloud.publish(scan_data);
@@ -105,7 +118,7 @@ int main(int argc, char** argv)
   boost::shared_ptr<Sync> sync_;
   subOdometry.subscribe(nh, "/hdl_localization/ndt_pose", 1);
   subLaserCloud.subscribe(nh, "/hdl_localization/raw_points", 1);
-  sync_.reset(new Sync(syncPolicy(100), subOdometry, subLaserCloud));
+  sync_.reset(new Sync(syncPolicy(1000), subOdometry, subLaserCloud)); //100
   sync_->registerCallback(boost::bind(laserCloudAndOdometryHandler, _1, _2));
 
   ros::Publisher pubOdometry = nh.advertise<nav_msgs::Odometry> ("/state_estimation", 5);
