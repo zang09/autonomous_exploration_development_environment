@@ -8,14 +8,14 @@
   <arg name="autonomyMode" default="true"/>
   <arg name="autonomySpeed" default="0.5"/> <!--fix-->
   <arg name="joyToSpeedDelay" default="2.0"/>
-  <arg name="goalBound" default="0.5"/>
+  <arg name="goalBound" default="0.8"/>
   <arg name="goalX" default="0"/>
   <arg name="goalY" default="0"/>
 
   <node pkg="local_planner" type="localPlanner" name="localPlanner" output="screen" required="true">
     <param name="pathFolder" type="string" value="$(find local_planner)/paths" />
     <param name="vehicleLength" type="double" value="0.8" />
-    <param name="vehicleWidth" type="double" value="0.6" />
+    <param name="vehicleWidth" type="double" value="0.8" />
     <param name="sensorOffsetX" value="$(arg sensorOffsetX)" />
     <param name="sensorOffsetY" value="$(arg sensorOffsetY)" />
     <param name="twoWayDrive" value="$(arg twoWayDrive)" />
@@ -23,11 +23,11 @@
     <param name="terrainVoxelSize" type="double" value="0.2" /> <!--fix (0.4)-->
     <param name="useTerrainAnalysis" type="bool" value="true" /> <!--fix-->
     <param name="checkObstacle" type="bool" value="true" /> <!--fix-->
-    <param name="checkRotObstacle" type="bool" value="true" /> <!--fix-->
+    <param name="checkRotObstacle" type="bool" value="false" /> <!--fix-->
     <param name="adjacentRange" type="double" value="4.0" /> <!--fix (4.25)-->
-    <param name="obstacleHeightThre" type="double" value="0.2" /> <!--fix (0.3)-->
+    <param name="obstacleHeightThre" type="double" value="0.3" /> <!--fix (0.3)-->
     <param name="groundHeightThre" type="double" value="0.1" />
-    <param name="costHeightThre" type="double" value="0.1" />
+    <param name="costHeightThre" type="double" value="0.2" />
     <param name="costScore" type="double" value="0.02" />
     <param name="useCost" type="bool" value="true" /> <!--fix-->
     <param name="pointPerPathThre" type="int" value="3" /> <!--fix-->
@@ -60,12 +60,12 @@
     <param name="sensorOffsetY" value="$(arg sensorOffsetY)" />
     <param name="pubSkipNum" type="int" value="1" />
     <param name="twoWayDrive" value="$(arg twoWayDrive)" />
-    <param name="lookAheadDis" type="double" value="0.5" /> <!--fix-->
+    <param name="lookAheadDis" type="double" value="0.3" /> <!--fix-->
     <param name="yawRateGain" type="double" value="7.5" />
     <param name="stopYawRateGain" type="double" value="7.5" />
     <param name="maxYawRate" type="double" value="90.0" />
     <param name="maxSpeed" value="$(arg maxSpeed)" />
-    <param name="maxAccel" type="double" value="1.2" />
+    <param name="maxAccel" type="double" value="0.65" />
     <param name="switchTimeThre" type="double" value="1.0" />
     <param name="dirDiffThre" type="double" value="0.1" />
     <param name="stopDisThre" type="double" value="0.2" />

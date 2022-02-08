@@ -188,6 +188,7 @@ void clearingHandler(const std_msgs::Float32::ConstPtr &dis) {
   noDataInited = 0;
   clearingDis = dis->data;
   clearingCloud = true;
+  std::cout << "Clearing Map!" << std::endl;
 }
 
 int main(int argc, char **argv) {

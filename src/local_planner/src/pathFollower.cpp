@@ -176,6 +176,8 @@ void speedHandler(const std_msgs::Float32::ConstPtr& speed)
 void stopHandler(const std_msgs::Int8::ConstPtr& stop)
 {
   safetyStop = stop->data;
+  if(safetyStop >= 1)
+    std::cout << "Stop Following!" << std::endl;
 }
 
 int main(int argc, char** argv)
