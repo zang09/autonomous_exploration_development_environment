@@ -618,10 +618,10 @@ int main(int argc, char** argv)
     std_msgs::Int8 flag;
 
 #if PLOTPATHSET == 1
-    ros::Publisher pubFreePaths = nh.advertise<sensor_msgs::PointCloud2> ("/free_paths", 2);
+    ros::Publisher pubFreePaths = nh.advertise<sensor_msgs::PointCloud2> ("/free_paths", 5);
 #endif
 
-    ros::Publisher pubLaserCloud = nh.advertise<sensor_msgs::PointCloud2> ("/stacked_scans", 2);
+    ros::Publisher pubLaserCloud = nh.advertise<sensor_msgs::PointCloud2> ("/stacked_scans", 5);
 
     printf ("\nReading path files.\n");
 

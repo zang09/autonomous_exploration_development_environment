@@ -235,7 +235,7 @@ int main(int argc, char **argv) {
       nh.subscribe<std_msgs::Float32>("/map_clearing", 5, clearingHandler);
 
   ros::Publisher pubLaserCloud =
-      nh.advertise<sensor_msgs::PointCloud2>("/terrain_map", 2);
+      nh.advertise<sensor_msgs::PointCloud2>("/terrain_map", 5);
 
   for (int i = 0; i < terrainVoxelNum; i++) {
     terrainVoxelCloud[i].reset(new pcl::PointCloud<pcl::PointXYZI>());
