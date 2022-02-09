@@ -81,6 +81,7 @@ std::vector<geometry_msgs::Point> goalList;
 geometry_msgs::Point goalOrigin;
 int goalNum = 0;
 bool getGoalPos = false;
+bool goalLoop = false;
 
 float joySpeed = 0;
 float joySpeedRaw = 0;
@@ -347,6 +348,18 @@ void checkObstacleHandler(const std_msgs::Bool::ConstPtr& checkObs)
     }
 }
 
+void loopFlagHandler(const std_msgs::Bool::ConstPtr& loop)
+{
+    goalLoop = loop->data;
+
+    if(goalLoop) {
+        std::cout << "Loop activated" << std::endl;
+    }
+    else {
+        std::cout << "Loop deactivated" << std::endl;
+    }
+}
+
 int readPlyHeader(FILE *filePtr)
 {
     char str[50];
@@ -595,6 +608,8 @@ int main(int argc, char** argv)
 
     ros::Subscriber subCheckObstacle = nh.subscribe<std_msgs::Bool> ("/check_obstacle", 5, checkObstacleHandler);
 
+    ros::Subscriber subLoopFlag = nh.subscribe<std_msgs::Bool> ("/loop_flag", 5, loopFlagHandler);
+
     ros::Publisher pubPath = nh.advertise<nav_msgs::Path> ("/path", 5);
 
     ros::Publisher pubStop = nh.advertise<std_msgs::Int8> ("/stop", 5);
@@ -739,15 +754,22 @@ int main(int argc, char** argv)
 
                 relativeGoalDis = sqrt(relativeGoalX * relativeGoalX + relativeGoalY * relativeGoalY);
 
-                if(relativeGoalDis < goalBound)
+                if (relativeGoalDis < goalBound)
                 {
+                    std::cout << "Goal reached " << goalNum << "! (" << relativeGoalDis << ")" << std::endl;
                     goalNum++;
-                    std::cout << "Goal reached! (" << relativeGoalDis << ")" << std::endl;
 
-                    if(goalNum >= goalList.size()) /* Reach End Point */
+                    if (goalNum >= goalList.size()) /* Reach End Point */
                     {
-                        getGoalPos = false;
-                    }
+                        if (goalLoop && goalList.size() > 1) {
+                            goalNum = 0;
+                            goalX = goalList.at(goalNum).x;
+                            goalY = goalList.at(goalNum).y;
+                        }
+                        else {
+                            getGoalPos = false;
+                        }
+                    }                    
                     else /* Set Next Target */
                     {
                         goalX = goalList.at(goalNum).x;
