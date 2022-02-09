@@ -26,8 +26,8 @@
     <param name="checkRotObstacle" type="bool" value="false" /> <!--fix-->
     <param name="adjacentRange" type="double" value="4.0" /> <!--fix (4.25)-->
     <param name="obstacleHeightThre" type="double" value="0.3" /> <!--fix (0.3)-->
-    <param name="groundHeightThre" type="double" value="0.1" />
-    <param name="costHeightThre" type="double" value="0.2" />
+    <param name="groundHeightThre" type="double" value="0.1" /> <!--fix-->
+    <param name="costHeightThre" type="double" value="0.2" /> <!--fix-->
     <param name="costScore" type="double" value="0.02" />
     <param name="useCost" type="bool" value="true" /> <!--fix-->
     <param name="pointPerPathThre" type="int" value="3" /> <!--fix-->
@@ -49,7 +49,7 @@
     <param name="autonomySpeed" value="$(arg autonomySpeed)" />
     <param name="joyToSpeedDelay" value="$(arg joyToSpeedDelay)" />
     <param name="joyToCheckObstacleDelay" type="double" value="5.0" />
-    <param name="goalClearRange" type="double" value="0.5" />
+    <param name="goalClearRange" type="double" value="$(arg goalBound)" /> <!--fix (0.5)-->
     <param name="goalBound" type="double" value="$(arg goalBound)" />
     <param name="goalX" type="double" value="$(arg goalX)" />
     <param name="goalY" type="double" value="$(arg goalY)" />
@@ -65,7 +65,7 @@
     <param name="stopYawRateGain" type="double" value="7.5" />
     <param name="maxYawRate" type="double" value="90.0" />
     <param name="maxSpeed" value="$(arg maxSpeed)" />
-    <param name="maxAccel" type="double" value="0.65" />
+    <param name="maxAccel" type="double" value="0.65" /> <!--fix-->
     <param name="switchTimeThre" type="double" value="1.0" />
     <param name="dirDiffThre" type="double" value="0.1" />
     <param name="stopDisThre" type="double" value="0.2" />
